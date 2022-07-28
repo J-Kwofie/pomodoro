@@ -2,12 +2,13 @@ import toggler from './toggler.js'
 import settingToggler from './settingToggler.js'
 import settingTogglerClose from './closeButton.js'
 import setting from './applyCustomize.js'
-import {setProgress,myInterval,minuteTimer,progressStatus} from './pomodoroStart.js'
+import {setProgress,myInterval,progressStatus} from './pomodoroStart.js'
 
 const nav = document.querySelector('nav')
 const settingButton = document.getElementById('settingButton')
 const closeButton = document.getElementById('closeButton');
 const startButton = document.getElementById('status');
+
 
 //select nav item
 nav.addEventListener('click', function (event) {
@@ -44,9 +45,13 @@ color.addEventListener('click' ,function (event) {
 //applying changes
 
 const apply = document.getElementById('apply');
-apply.addEventListener('click',function (e){setting(startButton)})
+apply.addEventListener('click',function (e){
+		apply.style.opacity='0.8'
+		apply.style.opacity='1'
 
+	setting(startButton)})
 
+	
 //changing values
 const arrowUp = document.querySelectorAll('.arrow-up')
 arrowUp.forEach((item)=>{
@@ -83,9 +88,10 @@ arrowDown.forEach((item)=>{
 
 
 //pomodoro start function
+let event;
 
 startButton.addEventListener('click', function(e){
-
+	event =e;
 	if(startButton.textContent==="Start"){
 
 		setProgress(e);
@@ -117,3 +123,4 @@ startButton.addEventListener('click', function(e){
 
 });
 
+export default event

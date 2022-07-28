@@ -1,5 +1,13 @@
 
-import {setProgress,myInterval,minuteTimer,progressStatus,setIncrement} from './pomodoroStart.js'
+import {setProgress,myInterval,progressStatus,circumference,setIncrement,setMinute,getIncrement} from './pomodoroStart.js'
+import event from './index.js'
+
+function setColorAndFont(backgroundElementToBeChange, baColorSet,font,fontSet){
+	const ba = document.querySelector(':root');
+	ba.style.setProperty('--color', baColorSet);
+	ba.style.setProperty('--fontFamily', fontSet);
+}
+
 
 function setting(startButton){
 	const backgroundElementToBeChange = document.querySelector('.activeColor').parentNode
@@ -7,36 +15,47 @@ function setting(startButton){
 
 
 	const font = document.querySelector('#font .active');
-	const fontSet = window.getComputedStyle( font ,null).getPropertyValue('font-family');  
+	const fontSet = window.getComputedStyle( font ,null).getPropertyValue('font-family'); 
+
+	setColorAndFont(backgroundElementToBeChange, baColorSet,font,fontSet);
+
+
 
 	const pomodoroValue = document.getElementById('pomodoro-value').textContent;
 	const longValue = document.getElementById('long-value').textContent;
 	const shortValue = document.getElementById('short-value').textContent;
 
-	 document.getElementById('pomodoro__time').textContent = parseInt(pomodoroValue)
-	 document.getElementById('long').textContent =   parseInt(longValue)
-	 document.getElementById('short').textContent = parseInt(longValue)
+	
 	 //set minute
-	 clearInterval(myInterval)
-	 clearInterval(minuteTimer)
 	 
-	if(startButton.textContent==="Start"){
-		progressStatus.style.strokeDashoffset  = 0;
-		setIncrement(0)
-		setProgress();
-	}
 	if(startButton.textContent==="Pause"){
-		progressStatus.style.strokeDashoffset  = 0;
-		setIncrement(0)
-		document.getElementById('pomodoro__time').textContent = parseInt(pomodoroValue)+1
-		document.getElementById('long').textContent =   parseInt(longValue)+1
-		document.getElementById('short').textContent = parseInt(longValue)+1
-		setProgress();
+		clearInterval(myInterval)
+		document.getElementById('pomodoro__time').textContent = parseInt(pomodoroValue)
+		document.getElementById('long').textContent =   parseInt(longValue)
+		document.getElementById('short').textContent = parseInt(longValue)
+
+		let minuteEle = document.querySelector('#text .active .minutes')
+		minuteEle.textContent= minuteEle.textContent;
+		console.log(minuteEle,'hu kjg,fhv kvh,hj,hc, jkb,vjhv,j kjv,jvjj')
+
+		//setTime(minuteEle*60)
+		setMinute(null)
+		setIncrement(getIncrement())
+		//progressStatus.style.strokeDashoffset = circumference-(getIncrement()/getTime())*circumference;
+		setProgress(event);
+		
+
+		
+	}	else if(startButton.textContent==="Start"){
+		document.getElementById('pomodoro__time').textContent = parseInt(pomodoroValue)
+		document.getElementById('long').textContent =   parseInt(longValue)
+		document.getElementById('short').textContent = parseInt(longValue)
+		setMinute(null)
+
+
 	}
-	const ba = document.querySelector(':root');
-	ba.style.setProperty('--color', baColorSet);
-	ba.style.setProperty('--fontFamily', fontSet);
-	console.log(pomodoroValue,longValue,shortValue)
+
+	
 }
 
 export default setting;

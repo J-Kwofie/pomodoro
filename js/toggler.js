@@ -1,4 +1,4 @@
-import {myInterval,minuteTimer,progressStatus,setIncrement} from './pomodoroStart.js';
+import {myInterval,progressStatus,setIncrement,setMinute} from './pomodoroStart.js';
 
 function toggler(e,active) {
 	const navItemClicked = e.target
@@ -8,7 +8,6 @@ function toggler(e,active) {
 		active.removeAttribute('id')	
 		navItemClicked.setAttribute('id', 'active');
 		clearInterval(myInterval)
-		clearInterval(minuteTimer)
 		progressStatus.style.strokeDashoffset  = 0;
 
 		//set timer value
@@ -25,6 +24,8 @@ function toggler(e,active) {
 		let long = document.getElementById('long');
 		long.textContent = long_value;
 		setIncrement(0)
+		setMinute(null)
+
 
 		document.getElementById('status').textContent="Start"
 		//set the seconds timer to 0

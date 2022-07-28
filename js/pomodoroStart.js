@@ -7,10 +7,13 @@ let myInterval;
 let minuteTimer;
 let increment = 0;
 let g;
+let time
+let minuteSoFar; 
+let minute ;
+
 function setProgress(event){
-	let minute ;
 	let minuteEle = document.querySelector('#text .active .minutes')
-	let secondsEle = document.querySelector('#text .active .seconds')
+	let secondsEle = minuteEle.nextElementSibling.nextElementSibling
 
 
 		if(!minute){
@@ -18,15 +21,16 @@ function setProgress(event){
 		}
 		let second = parseInt(secondsEle.textContent);
 
-		console.log(minute,second,"minute and seconds")
+		console.log(secondsEle,"minute and seconds")
 		const date = new Date();
 		date.setMinutes(minute)
 		date.setSeconds((second%60)-1)
 		console.log(date.getMinutes(),"end time")
+		let s =date.getSeconds()
+		 	time = (date.getMinutes()*60+(s+1)+increment);
 
-		let time = (date.getMinutes()*60+(date.getSeconds()+1)+increment);
-
-		console.log(time,'progressStatus')
+		 
+		console.log(s,'progressStatus')
 		progressStatus.style.strokeDasharray = circumference;
 		if(increment!==0){
 			progressStatus.style.strokeDashoffset = circumference-(increment/time)*circumference;
@@ -55,6 +59,7 @@ function setProgress(event){
 						console.log(date,'date')
 						console.log(time,'time')
 						console.log(increment, "gh")
+						console.log(increment, "gh")
 					  progressStatus.style.strokeDashoffset = circumference-(increment/time)*circumference;
 					 
 					  //set seconds element 
@@ -70,7 +75,9 @@ function setProgress(event){
 					  
 					
 					  if (increment>=time) {
-					  	event.target.textContent="Restart"
+					  	const startButton = document.getElementById('status');
+
+					  	startButton.textContent="Restart"
 					  	clearInterval(myInterval)
 					  	increment=0
 
@@ -91,6 +98,13 @@ function setProgress(event){
 function setIncrement(va){
 	increment=va
 }
+function getIncrement(){
+	return increment
+}
 
 
-export {setProgress,myInterval,minuteTimer,progressStatus,setIncrement} ;
+function setMinute(min){
+	minute = min;
+}
+
+export {setProgress,myInterval,progressStatus,circumference,setIncrement,getIncrement,setMinute} ;
